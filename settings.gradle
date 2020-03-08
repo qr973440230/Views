@@ -1,0 +1,3 @@
+rootProject.name='Views'
+include ':app'
+include ':library'

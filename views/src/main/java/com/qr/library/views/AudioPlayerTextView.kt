@@ -3,6 +3,7 @@ package com.qr.library.views
 import android.content.Context
 import android.media.AudioManager
 import android.media.MediaPlayer
+import android.os.Build
 import android.os.Handler
 import android.util.AttributeSet
 import android.util.Log
@@ -58,13 +59,15 @@ class AudioPlayerTextView(context: Context?, attrs: AttributeSet? = null, defSty
     // 播放相关
     private var mediaPlayer: MediaPlayer? = null
     private var hasPrepared = false
+
+    @Suppress("DEPRECATION")
     fun setDataSource(url: String?) {
         if (mediaPlayer == null) {
             // 设置MediaPlayer
             try {
                 mediaPlayer = MediaPlayer()
                 mediaPlayer!!.setAudioStreamType(AudioManager.STREAM_MUSIC)
-                mediaPlayer!!.setOnErrorListener { mp, what, extra ->
+                mediaPlayer!!.setOnErrorListener { _, _, _ ->
                     mediaPlayer!!.reset()
                     stopAnimate()
                     stopUpdateDuration()

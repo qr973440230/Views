@@ -10,7 +10,7 @@ import android.view.MotionEvent
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
-import com.qr.library.utils.DisplayUtils
+import com.qr.library.views.ViewUtils.dp2px
 
 class EditTextWithVisible : AppCompatEditText {
     private val imgVisible: Drawable? = ContextCompat.getDrawable(context, R.drawable.et_visibility)
@@ -58,7 +58,7 @@ class EditTextWithVisible : AppCompatEditText {
         if (event?.action == MotionEvent.ACTION_UP && isFocused && length() > 0) {
             val rect = Rect()
             getGlobalVisibleRect(rect)
-            rect.left = rect.right - DisplayUtils.dp2px(24f, context)
+            rect.left = rect.right - dp2px(24f, context)
             if (rect.contains(event.rawX.toInt(), event.rawY.toInt())) {
                 if (inputType.and(InputType.TYPE_TEXT_VARIATION_PASSWORD) != 0) {
                     inputType = InputType.TYPE_CLASS_TEXT

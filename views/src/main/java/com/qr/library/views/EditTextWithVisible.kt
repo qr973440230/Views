@@ -13,9 +13,9 @@ import androidx.core.widget.addTextChangedListener
 import com.qr.library.utils.DisplayUtils
 
 class EditTextWithVisible : AppCompatEditText {
-    private val imgVisible: Drawable? = ContextCompat.getDrawable(context, R.drawable.ic_visibility)
+    private val imgVisible: Drawable? = ContextCompat.getDrawable(context, R.drawable.et_visibility)
     private val imgVisibleOff: Drawable? =
-        ContextCompat.getDrawable(context, R.drawable.ic_visibility_off)
+        ContextCompat.getDrawable(context, R.drawable.et_visibility_off)
 
     constructor(context: Context) : super(context)
 

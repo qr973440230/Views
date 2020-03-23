@@ -12,7 +12,7 @@ import androidx.core.widget.addTextChangedListener
 import com.qr.library.utils.DisplayUtils
 
 class EditTextWithDel : AppCompatEditText {
-    private val imgDel: Drawable? = ContextCompat.getDrawable(context, R.drawable.ic_clear)
+    private val imgDel: Drawable? = ContextCompat.getDrawable(context, R.drawable.et_clear)
 
     constructor(context: Context) : super(context)
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet)

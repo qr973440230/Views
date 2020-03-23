@@ -9,7 +9,11 @@ import android.view.MotionEvent
 import android.view.View
 import kotlin.math.abs
 
-class CropView : View {
+class CropView(
+    context: Context?,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : View(context, attrs, defStyleAttr) {
     private var path: String? = null
     private var bitmap: Bitmap? = null
     private var srcHeight = 0
@@ -32,19 +36,6 @@ class CropView : View {
     private var touchStartY = 0
     private var touchType = 0
     private var touched = false
-
-    constructor(context: Context?) : super(context)
-
-    constructor(context: Context?, attrs: AttributeSet?) : super(
-        context,
-        attrs
-    )
-
-    constructor(
-        context: Context?,
-        attrs: AttributeSet?,
-        defStyleAttr: Int
-    ) : super(context, attrs, defStyleAttr)
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {

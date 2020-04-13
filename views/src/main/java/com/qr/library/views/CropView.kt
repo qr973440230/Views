@@ -9,8 +9,8 @@ import android.view.MotionEvent
 import android.view.View
 import kotlin.math.abs
 
-class CropView(
-    context: Context?,
+class CropView @JvmOverloads constructor(
+    context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
@@ -27,6 +27,7 @@ class CropView(
 
     // 图片绘制框
     private var imageSrcRect: Rect? = null
+
     private var viewWidth = 0
     private var viewHeight = 0
     private var viewLeft = 0
@@ -47,38 +48,30 @@ class CropView(
             touched = true
             touchStartX = event.x.toInt()
             touchStartY = event.y.toInt()
+            val deltaLeft = abs(touchStartX - cropRect!!.left)
+            val deltaTop = abs(touchStartY - cropRect!!.top);
+            val deltaRight = abs(touchStartX - cropRect!!.right);
+            val deltaBottom = abs(touchStartY - cropRect!!.bottom);
             val touchStep = cropRect!!.width() / 6
-            touchType = if (abs(touchStartX - cropRect!!.left) < touchStep && abs(
-                    touchStartY - cropRect!!.top
-                ) < touchStep
-            ) {
+            val centerRect = Rect(
+                cropRect!!.left + touchStep * 2,
+                cropRect!!.top + touchStep * 2,
+                cropRect!!.left + touchStep * 4,
+                cropRect!!.top + touchStep * 4
+            )
+            touchType = if (deltaLeft < touchStep && deltaTop < touchStep) {
                 0
                 // left-top
-            } else if (abs(touchStartX - cropRect!!.left) < touchStep && abs(
-                    touchStartY - cropRect!!.bottom
-                ) < touchStep
-            ) {
+            } else if (deltaLeft < touchStep && deltaBottom < touchStep) {
                 1
                 // left-bottom
-            } else if (abs(touchStartX - cropRect!!.right) < touchStep && abs(
-                    touchStartY - cropRect!!.top
-                ) < touchStep
-            ) {
+            } else if (deltaRight < touchStep && deltaTop < touchStep) {
                 2
                 // right-top
-            } else if (abs(touchStartX - cropRect!!.right) < touchStep && abs(
-                    touchStartY - cropRect!!.bottom
-                ) < touchStep
-            ) {
+            } else if (deltaRight < touchStep && deltaBottom < touchStep) {
                 3
                 // right-bottom
-            } else if (Rect(
-                    cropRect!!.left + touchStep * 2,
-                    cropRect!!.top + touchStep * 2,
-                    cropRect!!.left + touchStep * 4,
-                    cropRect!!.top + touchStep * 4
-                ).contains(touchStartX, touchStartY)
-            ) { // center
+            } else if (centerRect.contains(touchStartX, touchStartY)) { // center
                 4
             } else { // Other
                 5
@@ -109,7 +102,10 @@ class CropView(
                 if (abs(deltaX) > abs(deltaY)) {
                     val resultLeft = (cropRect!!.left + deltaX).toInt()
                     val resultTop = (cropRect!!.top + deltaX).toInt()
-                    if (resultLeft >= circleRadius / 2 && resultTop >= circleRadius / 2 && cropRect!!.right - resultLeft >= 256 && cropRect!!.bottom - resultTop >= 256
+                    if (resultLeft >= circleRadius / 2 &&
+                        resultTop >= circleRadius / 2 &&
+                        cropRect!!.right - resultLeft >= 256 &&
+                        cropRect!!.bottom - resultTop >= 256
                     ) {
                         cropRect!!.left = resultLeft
                         cropRect!!.top = cropRect!!.bottom - cropRect!!.width()
@@ -117,7 +113,10 @@ class CropView(
                 } else {
                     val resultLeft = (cropRect!!.left + deltaY).toInt()
                     val resultTop = (cropRect!!.top + deltaY).toInt()
-                    if (resultLeft >= circleRadius / 2 && resultTop >= circleRadius / 2 && cropRect!!.right - resultLeft >= 256 && cropRect!!.bottom - resultTop >= 256
+                    if (resultLeft >= circleRadius / 2 &&
+                        resultTop >= circleRadius / 2 &&
+                        cropRect!!.right - resultLeft >= 256 &&
+                        cropRect!!.bottom - resultTop >= 256
                     ) {
                         cropRect!!.left = resultLeft
                         cropRect!!.top = cropRect!!.bottom - cropRect!!.width()
@@ -393,6 +392,6 @@ class CropView(
         }
 
     companion object {
-        val TAG = CropView::class.java.simpleName
+        val TAG = CropView::class.simpleName
     }
 }

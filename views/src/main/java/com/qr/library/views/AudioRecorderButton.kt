@@ -23,7 +23,7 @@ import java.io.File
 import java.util.*
 
 class AudioRecorderButton @JvmOverloads constructor(
-    context: Context?,
+    context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : AppCompatButton(context, attrs, defStyleAttr) {

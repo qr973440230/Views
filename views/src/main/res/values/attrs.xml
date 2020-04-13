@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ExpandedListLayout">
+        <attr name="ell_hostView" format="reference" />
+        <attr name="ell_divider" format="reference" />
+        <attr name="ell_subView" format="reference" />
+        <attr name="ell_subDivider" format="reference"/>
+        <attr name="ell_subCount" format="integer" />
+    </declare-styleable>
+</resources>

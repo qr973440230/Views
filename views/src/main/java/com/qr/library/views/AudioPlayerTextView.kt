@@ -3,7 +3,6 @@ package com.qr.library.views
 import android.content.Context
 import android.media.AudioManager
 import android.media.MediaPlayer
-import android.os.Build
 import android.os.Handler
 import android.util.AttributeSet
 import android.util.Log
@@ -13,8 +12,11 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import java.util.*
 
-class AudioPlayerTextView(context: Context?, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    AppCompatTextView(context, attrs, defStyleAttr) {
+class AudioPlayerTextView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : AppCompatTextView(context, attrs, defStyleAttr) {
 
     init {
         // 默认16sp
